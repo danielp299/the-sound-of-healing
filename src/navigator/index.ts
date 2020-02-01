@@ -2,6 +2,7 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import HomeView from "../views/home/HomeView";
 import GameMap from "../views/game-map/GameMap";
+import Game from "../views/game/Game";
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -9,6 +10,9 @@ const AppNavigator = createStackNavigator({
   },
   GameMap: {
     screen: GameMap
+  },
+  Game: {
+    screen: Game
   }
 }, {
   headerMode: null

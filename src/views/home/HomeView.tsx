@@ -9,11 +9,16 @@ const HomeView = ({ navigation }) => {
     navigation.navigate("GameMap")
   }
 
+  const goToGame = () => {
+    console.log("game motherfddsdfs");
+    navigation.navigate("Game")
+  }
+
   return (
     <View style={{flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", backgroundColor: "red"}}>
       <Text>This is home</Text>
-      <Button title="Go to Map" onPress={goToMap}>
-      </Button>
+      <Button title="Go to Map" onPress={goToMap}></Button>
+      <Button title="Go Game" onPress={goToGame}></Button>
     </View>
   )
 }
