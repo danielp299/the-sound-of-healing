@@ -24,6 +24,8 @@ const King = {
   assets: [
     require("../../../assets/king_state_1.png"),
     require("../../../assets/king_state_2.png"),
+    require("../../../assets/king_state_3.png"),
+    require("../../../assets/king_state_4.png"),
     require("../../../assets/king_state_5.png")
   ]
 }

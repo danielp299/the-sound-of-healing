@@ -13,10 +13,7 @@ const CreditsView = ({ navigation }) => {
   return (
     <ImageBackground
       style={style.container}
-      source={{
-        uri:
-          "https://i.pinimg.com/originals/6f/71/4a/6f714a99396dac21239917878a468f35.png"
-      }}
+      source={require("../../../assets/menu_background.png")}
     >
       <BackBtn navigator={navigation}/>
       <Text style={style.title}>C R E D I T S</Text>

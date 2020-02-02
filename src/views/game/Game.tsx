@@ -116,7 +116,7 @@ const Game = ({ navigation }) => {
   }
 
   return (
-    <ImageBackground resizeMode="cover" source={{uri: "https://i.pinimg.com/originals/13/50/b3/1350b3bb1ba8c252dd4e6b75fce3e7ba.jpg"}} style={style.container}>
+    <ImageBackground resizeMode="cover" source={require("../../../assets/background_gameplay.jpeg")} style={style.container}>
       <BackBtn navigator={navigation} callback={onBackCalled}/>
       <ModalPopup message="Great you restore it" visible={victoryModal}/>
       <ModalPopup message="Wow you've been defeat, try in another time"  color="#FF0000" visible={loseModal}/>
@@ -159,7 +159,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   sceneContainer: {
     flex: 4

@@ -15,7 +15,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#09C600"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,6 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "org.cams.thesoundofhealing",
+      "backgroundColor": "#09C600",
+      "icon": "./assets/icon.png"
     }
   }
 }
