@@ -4,7 +4,7 @@ import Keyboard from "./components/Keyboard";
 import LifeBar from "./components/LifeBar";
 import NotSequence from "./components/NoteSequence";
 import { createSequence } from "./SequenceGenerator";
-import { FAIL_FACTOR, HEALTH_FACTOR } from "../../constants";
+import { FAIL_FACTOR, HEALTH_FACTOR, DELAY_AFTER_DEFEAT } from "../../constants";
 import { Audio } from "expo-av"
 import BackBtn from "../components/BackBtn";
 import { getEnemy } from "./EnemyGenerator";
@@ -51,10 +51,12 @@ const Game = ({ navigation }) => {
       const currentEnemyState = enemyState + 1;
       setEnemyState(currentEnemyState);
       if ((currentEnemyState) >= enemy.assets.length - 1) {
-        const currentDefeatedEnemies = defeatedEnemies + 1;
-        setDefeatedEnemies(currentDefeatedEnemies);
-        setEnemy(getEnemy(currentDefeatedEnemies))
-        setEnemyState(0);
+        setTimeout(() => {
+          const currentDefeatedEnemies = defeatedEnemies + 1;
+          setDefeatedEnemies(currentDefeatedEnemies);
+          setEnemy(getEnemy(currentDefeatedEnemies))
+          setEnemyState(0);
+        }, DELAY_AFTER_DEFEAT)
       }
 
       setNotes(createSequence())
