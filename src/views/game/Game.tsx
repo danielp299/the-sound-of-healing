@@ -4,11 +4,12 @@ import Keyboard from "./components/Keyboard";
 import LifeBar from "./components/LifeBar";
 import NotSequence from "./components/NoteSequence";
 import { createSequence } from "./SequenceGenerator";
-import { FAIL_FACTOR, HEALTH_FACTOR, DELAY_AFTER_DEFEAT } from "../../constants";
+import { FAIL_FACTOR, DELAY_AFTER_DEFEAT } from "../../constants";
 import { Audio } from "expo-av"
 import BackBtn from "../components/BackBtn";
-import { getEnemy } from "./EnemyGenerator";
+import { getEnemy, TOTAL_ENEMIES } from "./EnemyGenerator";
 import { totalHeight } from "../../style-helper";
+import ModalPopup from "./components/ModalPopup";
 
 const Game = ({ navigation }) => {
   const [notes, setNotes] = useState(createSequence());
@@ -17,6 +18,10 @@ const Game = ({ navigation }) => {
   const [enemy, setEnemy] = useState(getEnemy(0))
   const [enemyState, setEnemyState] = useState(0);
   const [defeatedEnemies, setDefeatedEnemies] = useState(0);
+  const [victoryModal, setVictoryModal] = useState(false);
+  const [loseModal, setLoseModal] = useState(false);
+  const [pauseKeyboad, setPauseKeyboard] = useState(false);
+  const [finishModal, setFinishModal] = useState(false);
 
   const sound = new Audio.Sound();
 
@@ -51,11 +56,20 @@ const Game = ({ navigation }) => {
       const currentEnemyState = enemyState + 1;
       setEnemyState(currentEnemyState);
       if ((currentEnemyState) >= enemy.assets.length - 1) {
+        setVictoryModal(true);
+        setPauseKeyboard(true);
         setTimeout(() => {
+          setPauseKeyboard(false);
+          setVictoryModal(false);
           const currentDefeatedEnemies = defeatedEnemies + 1;
           setDefeatedEnemies(currentDefeatedEnemies);
-          setEnemy(getEnemy(currentDefeatedEnemies))
-          setEnemyState(0);
+          if (currentDefeatedEnemies >= TOTAL_ENEMIES) {
+            setFinishModal(true);
+            setPauseKeyboard(true);
+          } else {
+            setEnemy(getEnemy(currentDefeatedEnemies));
+            setEnemyState(0);
+          }
         }, DELAY_AFTER_DEFEAT)
       }
 
@@ -73,11 +87,22 @@ const Game = ({ navigation }) => {
     });
     setNotes(resetNotes);
     setNoteIdx(0);
-    setLife(life - FAIL_FACTOR);
+
+    const currentLife = life - FAIL_FACTOR;
+    setLife(currentLife);
+
+    if (currentLife <= 0) {
+      setLoseModal(true);
+      setPauseKeyboard(true);
+      setTimeout(() => {
+        setPauseKeyboard(false);
+        setLoseModal(false);
+        navigation.goBack();
+      }, DELAY_AFTER_DEFEAT)
+    }
   };
 
   const _onKeyReceived = note => {
-    // if (isRestored(restored)) return;
     if (notes[noteIdx].name === note) {
       updateSuccessNote();
     } else {
@@ -93,6 +118,9 @@ const Game = ({ navigation }) => {
   return (
     <ImageBackground resizeMode="cover" source={{uri: "https://i.pinimg.com/originals/13/50/b3/1350b3bb1ba8c252dd4e6b75fce3e7ba.jpg"}} style={style.container}>
       <BackBtn navigator={navigation} callback={onBackCalled}/>
+      <ModalPopup message="Great you restore it" visible={victoryModal}/>
+      <ModalPopup message="Wow you've been defeat, try in another time"  color="#FF0000" visible={loseModal}/>
+      <ModalPopup message="Wonderfull!! you save the King" visible={finishModal}/>
       <View style={style.sceneContainer}>
         <View style={{ flex: 3, justifyContent: "center", alignItems: "center" }}>
           <View style={{marginTop: 60}}>
@@ -111,7 +139,7 @@ const Game = ({ navigation }) => {
       </View>
 
       <View style={style.keyboardContainer}>
-        <Keyboard dispatchNote={_onKeyReceived} />
+        <Keyboard dispatchNote={_onKeyReceived} paused={pauseKeyboad}/>
       </View>
     </ImageBackground>
   );
@@ -134,9 +162,7 @@ const style = StyleSheet.create({
     justifyContent: "center"
   },
   sceneContainer: {
-    flex: 4,
-
-    // backgroundColor: "blue"
+    flex: 4
   },
   keyboardContainer: {
     flex: 1,

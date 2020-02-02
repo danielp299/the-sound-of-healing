@@ -27,8 +27,9 @@ const CreditsView = ({ navigation }) => {
       <Text style={style.subtitle}>Developer:</Text>
       <Text style={[style.separator, style.text]}>Carlos Montes (Kaito)</Text>
 
-      <Text style={style.subtitle}>Artist:</Text>
-      <Text style={[style.separator, style.text]}>Daniel Pernia</Text>
+      <Text style={style.subtitle}>Digital Artists:</Text>
+      <Text style={[style.text]}>Daniel Pernia</Text>
+      <Text style={[style.separator, style.text]}>Adriana Urdaneta</Text>
 
       <Text style={[style.separator, style.subtitle]}>External Resources:</Text>
       <Text style={style.text}>TuesdayNight</Text>

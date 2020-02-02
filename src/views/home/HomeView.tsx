@@ -15,10 +15,7 @@ const HomeView = ({ navigation }) => {
   return (
     <ImageBackground
       style={style.container}
-      source={{
-        uri:
-          "https://i.pinimg.com/originals/6f/71/4a/6f714a99396dac21239917878a468f35.png"
-      }}
+      source={require("../../../assets/menu_background.png")}
     >
       <View style={{ flex: 2, justifyContent: "center" }}>
         <Image

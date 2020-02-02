@@ -1,11 +1,16 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-import { totalHeight, totalWidth } from "../../../style-helper";
 
-const KeyboardTile = ({ note, dispatchNote }) => {
+const KeyboardTile = ({ note, dispatchNote, paused = false }) => {
+
+    const _onKeyPressed = () => {
+       if (!paused) {
+           dispatchNote(note)
+       }
+    }
 
     return (
-        <TouchableOpacity onPress={() => dispatchNote(note)} style={style.tileContainer}>
+        <TouchableOpacity onPress={_onKeyPressed} style={style.tileContainer}>
             <View style={style.tileTextContainer}>
                 <Text style={style.tileText}>{note}</Text>
             </View>

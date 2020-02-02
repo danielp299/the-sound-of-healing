@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import KeyboardTile from "./KeyboardTile";
 
-const Keyboard = ({ dispatchNote }) => {
+const Keyboard = ({ dispatchNote, paused = false }) => {
 
     const onPressedKeyNote = (note) => {
         dispatchNote(note)
@@ -10,10 +10,10 @@ const Keyboard = ({ dispatchNote }) => {
 
     return (
         <View style={style.container}>
-            <KeyboardTile note="A" dispatchNote={onPressedKeyNote}/>
-            <KeyboardTile note="B" dispatchNote={onPressedKeyNote}/>
-            <KeyboardTile note="C" dispatchNote={onPressedKeyNote}/>
-            <KeyboardTile note="D" dispatchNote={onPressedKeyNote}/>
+            <KeyboardTile note="A" paused={paused} dispatchNote={onPressedKeyNote}/>
+            <KeyboardTile note="B" paused={paused} dispatchNote={onPressedKeyNote}/>
+            <KeyboardTile note="C" paused={paused} dispatchNote={onPressedKeyNote}/>
+            <KeyboardTile note="D" paused={paused} dispatchNote={onPressedKeyNote}/>
         </View>
     );
 }

@@ -4,10 +4,10 @@ import { totalHeight, totalWidth } from "../../style-helper";
 
 const BackBtn = ({ navigator, callback = null }) => {
 
-  const goBack = () => {
+  const goBack = async () => {
     navigator.goBack();
 
-    if (callback != null) callback();
+    if (callback != null) await callback();
   }
 
   return (
